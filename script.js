@@ -8,13 +8,21 @@ let currentplayer = 1;
 
 function start() {
     console.log("JavaScript kører");
+    displayBoard();
     makeBoardClickable();
 }
 
 function selectCell(row, col) {
-    writeToCell(row, col, currentplayer);
-    displayBoard();
-    nextTurn();
+    if (readFromCell(row, col) === 0) {
+        writeToCell(row, col, currentplayer);
+        displayBoard();
+        nextTurn();
+        console.log("Good move boss...");
+        return true;
+    } else {
+        alert("That field is occupied!")
+        return false; 
+    }
 }
 
 function nextTurn() {
