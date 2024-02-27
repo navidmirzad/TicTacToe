@@ -4,14 +4,25 @@ window.addEventListener("load", start);
 
 // *************** CONTROLLER ***************
 
+let currentplayer = 1;
+
 function start() {
     console.log("JavaScript kører");
     makeBoardClickable();
 }
 
 function selectCell(row, col) {
-    writeToCell(row, col, 1);
+    writeToCell(row, col, currentplayer);
     displayBoard();
+    nextTurn();
+}
+
+function nextTurn() {
+    if (currentplayer === 1) {
+        currentplayer = 2;
+    } else if (currentplayer === 2) {
+        currentplayer = 1;
+    }
 }
 
 
