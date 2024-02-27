@@ -6,6 +6,13 @@ window.addEventListener("load", start);
 
 let currentplayer = 1;
 
+function reload() {
+    window.location.reload();
+}
+
+const resetButton = document.getElementById("reset-button");
+resetButton.addEventListener("click", reload);
+
 function start() {
     console.log("JavaScript kører");
     displayBoard();
@@ -17,10 +24,9 @@ function selectCell(row, col) {
         writeToCell(row, col, currentplayer);
         displayBoard();
         nextTurn();
-        console.log("Good move boss...");
         return true;
     } else {
-        alert("That field is occupied!")
+        console.log(("That field is occupied!"));
         return false; 
     }
 }
@@ -28,8 +34,37 @@ function selectCell(row, col) {
 function nextTurn() {
     if (currentplayer === 1) {
         currentplayer = 2;
+        computerTurn();
     } else if (currentplayer === 2) {
         currentplayer = 1;
+        playerTurn();
+    }
+}
+
+function playerTurn() {
+
+}
+
+
+
+function computerTurn() {
+    const availableCells = [];
+    if (readFromCell(0, 0) === 0) availableCells.push([0, 0]);
+    if (readFromCell(0, 1) === 0) availableCells.push([0, 1]);
+    if (readFromCell(0, 2) === 0) availableCells.push([0, 2]);
+    if (readFromCell(1, 0) === 0) availableCells.push([1, 0]);
+    if (readFromCell(1, 1) === 0) availableCells.push([1, 1]);
+    if (readFromCell(1, 2) === 0) availableCells.push([1, 2]);
+    if (readFromCell(2, 0) === 0) availableCells.push([2, 0]);
+    if (readFromCell(2, 1) === 0) availableCells.push([2, 1]);
+    if (readFromCell(2, 2) === 0) availableCells.push([2, 2]);
+
+    if (availableCells.length === 0) {
+        console.log("Game over! No available cells left");
+    } else {
+        const index = Math.floor(Math.random() * availableCells.length);
+        const [row, col] = availableCells[index];
+        selectCell(row, col);
     }
 }
 
